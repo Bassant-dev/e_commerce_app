@@ -77,10 +77,10 @@ class ProfileCubit extends Cubit<ProfileStates> {
   ShowProfileModel ? showProfileModel;
 
   Future<void> GetProfile() async {
+    showProfileModel = null;
+    emit(ProfileLoadingState());
+
     try {
-
-      emit(ProfileLoadingState());
-
       Response data = await DioHelper.getData(
         url: '/profile',
         token: await CacheHelper.getData(key: "token"),
@@ -90,21 +90,28 @@ class ProfileCubit extends Cubit<ProfileStates> {
         showProfileModel = ShowProfileModel.fromJson(data.data);
         print(showProfileModel!.data!);
         emit(ProfileSuccessState());
-      } else {
+      }
+      else {
         emit(ProfileFailState());
       }
-    } catch (e) {
-      print(CacheHelper.getData(key: "token"));
-      print("Error in GetProfile: $e");
-      if(e is DioError && e.response?.statusCode==401){
-        final error = e.response?.data;
-        final m = error["message"];
-        print(error);
+    } catch (error) {
+      if(error is DioException){
+        print(error.response);
+      }
+      print(error);
+      if(error is DioError && error.response?.statusCode==401){
+        print(CacheHelper.getData(key: "token"));
+        final e = error.response?.data;
+        final m = e["message"];
+        print(e);
         print(m);
       }
+
+      print('API request error: $error');
       emit(ProfileFailState());
     }
   }
+
 
   int? selectItem;
 

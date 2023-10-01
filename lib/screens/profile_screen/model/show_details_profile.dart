@@ -1,4 +1,4 @@
-class ShowProfileModel{
+class ShowProfileModel {
   Data? data;
   String? message;
   List<Null>? error;
@@ -18,14 +18,15 @@ class ShowProfileModel{
     status = json['status'];
   }
 
+
 }
 
 class Data {
   int? id;
   String? name;
   String? email;
-  Null? address;
-  Null? city;
+  String? address;
+  String? city;
   String? phone;
   bool? emailVerified;
   String? image;

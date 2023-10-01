@@ -56,19 +56,19 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   children: [
                     ListTile(
                       leading: Icon(Icons.person, color: Colors.blue),
-                      title: Text('Name: ${profileData?.name ?? 'bassantmohamed'}'),
+                      title: Text('Name: ${profileData?.name ?? ''}'),
                     ),
                     ListTile(
                       leading: Icon(Icons.phone, color: Colors.green),
-                      title: Text('Phone: ${profileData?.phone ?? '01096543214'}'),
+                      title: Text('Phone: ${profileData?.phone ?? ''}'),
                     ),
                     ListTile(
                       leading: Icon(Icons.email, color: Colors.red),
-                      title: Text('Email: ${profileData?.email ?? 'bassantmali@gmail.com'}'),
+                      title: Text('Email: ${profileData?.email ?? ''}'),
                     ),
                     ListTile(
                       leading: Icon(Icons.location_city, color: Colors.orange),
-                      title: Text('City: ${profileData?.city ?? 'cairo'}'),
+                      title: Text('City: ${profileData?.city ?? ''}'),
                     ),
                     SizedBox(height: 16.h),
                     Align(

@@ -87,6 +87,7 @@ class LoginScreenBody extends StatelessWidget {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           isvisible = true;
+
                           LoginCubit.get(context).login(
                             context,
                             emailController.text,
