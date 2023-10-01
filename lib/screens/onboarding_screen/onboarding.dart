@@ -50,7 +50,7 @@ class _MyHomeState extends State<MyHome> {
                   ),
                   SizedBox(height: 10), // Added space for subtitle
                   Text(
-                    "Discover a world of books",
+                    "Discover your passion, explore new interests",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey, // Subtitle text color
@@ -75,7 +75,7 @@ class _MyHomeState extends State<MyHome> {
                   ),
                   SizedBox(height: 10), // Added space for subtitle
                   Text(
-                    "Explore topics that interest you",
+    "Discover a wide range of topics and subjects that pique your interest. Whether it's science, technology, literature, or any other field, our app offers a diverse selection of eBooks and resources to cater to your expertise.",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey, // Subtitle text color
@@ -100,7 +100,7 @@ class _MyHomeState extends State<MyHome> {
                   ),
                   SizedBox(height: 10), // Added space for subtitle
                   Text(
-                    "Access thousands of eBooks",
+                    "Access thousands of Books",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey, // Subtitle text color

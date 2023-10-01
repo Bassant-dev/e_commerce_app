@@ -19,7 +19,11 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
-
+  List<String> imagesSlider = [
+    'assets/img/sale1.jpeg',
+    'assets/img/sale2.jpeg',
+    'assets/img/sale3.jpeg',
+  ];
   List<Widget> _buildScreens(BuildContext context) {
 
     return [

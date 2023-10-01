@@ -19,7 +19,7 @@ class DioHelper {
 
     dio.options.headers = {
       'Authorization': "Bearer$token",
-      'Content-Type': 'application/json',
+    //  'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
     return await dio.get(url, queryParameters: query);
@@ -72,7 +72,7 @@ class DioHelper {
       }) async {
     dio.options.headers = {
       'Authorization': "Bearer $token",
-      'Content-Type': 'application/json',
+     // 'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
     return await dio.post(url, queryParameters: query, data: data);
@@ -85,7 +85,7 @@ class DioHelper {
         String? token}) async {
     dio.options.headers = {
       'Authorization': token,
-      'Content-Type': 'application/json',
+     // 'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
     return await dio.put(url, queryParameters: query, data: data);

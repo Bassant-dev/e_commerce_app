@@ -3,6 +3,8 @@ import 'package:e_commerce_app/screens/Register/view/Register_screen_body.dart';
 import 'package:e_commerce_app/screens/Register/view/widget/otp_screen.dart';
 
 import 'package:e_commerce_app/screens/Register/view_model/cubit/cubit.dart';
+import 'package:e_commerce_app/screens/books_screen/view/widget/books_details.dart';
+import 'package:e_commerce_app/screens/books_screen/view/widget/books_screen_body.dart';
 import 'package:e_commerce_app/screens/books_screen/view_model/cubit/cubit.dart';
 import 'package:e_commerce_app/screens/cart_screen/view_model/cubit/cubit.dart';
 import 'package:e_commerce_app/screens/fav_screen/view_model/cubit/cubit.dart';
@@ -12,8 +14,10 @@ import 'package:e_commerce_app/screens/login/view_model/cubit/cubit.dart';
 import 'package:e_commerce_app/screens/profile_screen/view_model/cubit/cubit.dart';
 import 'package:e_commerce_app/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import 'core/bloc_observer.dart';
 import 'core/cache_helper.dart';
@@ -24,6 +28,7 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.Init_dio();
   await CacheHelper.init();
+
   runApp(const MyApp());
 }
 
@@ -35,10 +40,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context)=> RegisterCubit()),
         BlocProvider(create: (context)=> LoginCubit()),
-        BlocProvider(create: (context)=>  BooksCubit()),
+        BlocProvider(create: (context)=>  BooksCubit()..GetBooks()),
         BlocProvider(create: (context)=>   FavCubit()),
         BlocProvider(create: (context)=>   CartCubit()),
-        BlocProvider(create: (context)=>   ProfileCubit()),
+        BlocProvider(create: (context)=>   ProfileCubit()..GetProfile()..GetGovernment()),
 
 
 
@@ -51,10 +56,10 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
 
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: HexColor("#174068")),
             useMaterial3: true,
           ),
-          home: HomeScreen(),
+          home:  MyHomePage(),
         ),
       ),
     );
