@@ -8,6 +8,7 @@ import '../../../../core/cache_helper.dart';
 
 import '../../../../core/components.dart';
 import '../../../home_screen/view/home_screen.dart';
+import '../../../home_screen/view/widget/bar_screen.dart';
 import '../../view_model/cubit/cubit.dart';
 import '../../view_model/cubit/states.dart';
 
@@ -32,7 +33,7 @@ class LoginScreenBody extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeScreen(),
+              builder: (context) =>  start (),
             ),
           );
         }

@@ -6,6 +6,10 @@ class GetBooksFailState extends BooksStates{}
 class GetBooksDetailsLoadingState extends BooksStates{}
 class GetBooksDetailsSuccessState extends BooksStates{}
 class GetBooksDetailsFailState extends BooksStates{}
-class SearchLoadingState extends BooksStates{}
-class SearchSuccessState extends BooksStates{}
-class SearchFailState extends BooksStates{}
+
+class AddToFavLoadingState extends BooksStates{}
+class AddToFavSuccessState extends BooksStates{}
+class AddToFavFailState extends BooksStates{}
+class AddToCartLoadingState extends  BooksStates{}
+class AddToCartSuccessState extends  BooksStates{}
+class AddToCartFailState extends BooksStates{}

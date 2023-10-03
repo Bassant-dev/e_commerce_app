@@ -1,41 +1,28 @@
-class BestSellerModel {
+class SearchModel {
   Data? data;
   String? message;
-  List<Null>? error;
+  List<String>? error; // Change the type to List<String>?
+
   int? status;
 
-  BestSellerModel({this.data, this.message, this.error, this.status});
+  SearchModel({this.data, this.message, this.error, this.status});
 
-  BestSellerModel.fromJson(Map<String, dynamic> json) {
+  SearchModel.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];
-    if (json['error'] != null) {
-      error = <Null>[];
-      json['error'].forEach((v) {
-        error!.add(v);
-      });
-    }
+    error = json['error'] != null
+        ? List<String>.from(json['error'].map((x) => x))
+        : null; // Parse error as List<String>
     status = json['status'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    data['message'] = this.message;
-    if (this.error != null) {
-      data['error'] = this.error!.map((v) => null).toList();
-    }
-    data['status'] = this.status;
-    return data;
   }
 }
 
 class Data {
   List<Products>? products;
+  Meta? meta;
+  Links? links;
 
-  Data({this.products});
+  Data({this.products, this.meta, this.links});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['products'] != null) {
@@ -44,12 +31,20 @@ class Data {
         products!.add(new Products.fromJson(v));
       });
     }
+    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.products != null) {
       data['products'] = this.products!.map((v) => v.toJson()).toList();
+    }
+    if (this.meta != null) {
+      data['meta'] = this.meta!.toJson();
+    }
+    if (this.links != null) {
+      data['links'] = this.links!.toJson();
     }
     return data;
   }
@@ -61,7 +56,7 @@ class Products {
   String? description;
   String? price;
   int? discount;
-  num? priceAfterDiscount;
+  double? priceAfterDiscount;
   int? stock;
   int? bestSeller;
   String? image;
@@ -104,6 +99,56 @@ class Products {
     data['best_seller'] = this.bestSeller;
     data['image'] = this.image;
     data['category'] = this.category;
+    return data;
+  }
+}
+
+class Meta {
+  int? total;
+  int? perPage;
+  int? currentPage;
+  int? lastPage;
+
+  Meta({this.total, this.perPage, this.currentPage, this.lastPage});
+
+  Meta.fromJson(Map<String, dynamic> json) {
+    total = json['total'];
+    perPage = json['per_page'];
+    currentPage = json['current_page'];
+    lastPage = json['last_page'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total'] = this.total;
+    data['per_page'] = this.perPage;
+    data['current_page'] = this.currentPage;
+    data['last_page'] = this.lastPage;
+    return data;
+  }
+}
+
+class Links {
+  String? first;
+  String? last;
+  Null? prev;
+  String? next;
+
+  Links({this.first, this.last, this.prev, this.next});
+
+  Links.fromJson(Map<String, dynamic> json) {
+    first = json['first'];
+    last = json['last'];
+    prev = json['prev'];
+    next = json['next'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['first'] = this.first;
+    data['last'] = this.last;
+    data['prev'] = this.prev;
+    data['next'] = this.next;
     return data;
   }
 }

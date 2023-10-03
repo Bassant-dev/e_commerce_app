@@ -1,12 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 import '../../view_model/cubit/cubit.dart';
 import '../../view_model/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-// ... other imports ...
 
 class HomeScreenBody extends StatelessWidget {
   HomeScreenBody({Key? key}) : super(key: key);
@@ -14,10 +12,7 @@ class HomeScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
-      appBar: AppBar(
-        backgroundColor: HexColor("#174068"),
-        title: Text('Home', style: TextStyle(color: Colors.white)),
-      ),
+
       body: BlocConsumer<HomeCubit,HomeStates>(builder: (context,state){
         var cubit=HomeCubit.get(context);
         return SingleChildScrollView(

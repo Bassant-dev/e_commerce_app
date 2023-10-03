@@ -10,3 +10,7 @@ class CategoryErrorState extends  HomeStates {}
 class NewArrivalLoadingState extends   HomeStates{}
 class NewArrivalSuccessState extends  HomeStates {}
 class NewArrivalErrorState extends  HomeStates {}
+class NewsBottomNavState extends  HomeStates {}
+class SearchLoadingState extends HomeStates{}
+class SearchSuccessState extends HomeStates{}
+class SearchFailState extends HomeStates{}

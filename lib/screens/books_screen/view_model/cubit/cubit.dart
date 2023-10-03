@@ -8,9 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cache_helper.dart';
+import '../../../cart_screen/model/add_tocart_model.dart';
+import '../../../fav_screen/model/add_fav_model.dart';
 import '../../model/books_details_model.dart';
 import '../../model/get_books_model.dart';
-import '../../model/search_model.dart';
+
 
 
 
@@ -54,32 +56,7 @@ class BooksCubit extends Cubit<BooksStates> {
       emit(GetBooksDetailsFailState());
     }
   }
-  SearchModel? searchModel;
-  List<SearchModel>searchResults=[];
-  Future<void> searchForDoctor(String name)async
-  {
-    emit(SearchLoadingState());
-    searchResults=[];
-    try {
-      Response response= await DioHelper.getData(
-          url: '/products-search?name=${name}',
-          token: CacheHelper.getData(key: "token"));
-      print(response.data['message']);
-      response.data['data'].forEach((item){
-        searchResults.add(SearchModel.fromJson(item));
-      });
-      emit(SearchSuccessState());
-    } on Exception catch (e) {
-      if(e is DioError && e.response?.statusCode==404){
-        final error = e.response?.data;
-        final m = error["message"];
-        print(error);
-        print(m);
-      }
-      emit(SearchFailState());
-    }
 
-  }
 
   GetBooksModel ? getBooksModel;
   Future<void>GetBooks()async
@@ -91,7 +68,7 @@ class BooksCubit extends Cubit<BooksStates> {
         token: await CacheHelper.getData(key: "token"));
     if (data.statusCode == 200) {
       getBooksModel =  GetBooksModel.fromJson(data.data);
-      print( getBooksModel!.data!.products);
+
       emit(GetBooksSuccessState());
       print("successsssss");
     }else{
@@ -103,6 +80,67 @@ class BooksCubit extends Cubit<BooksStates> {
 
 
   }
+  AddToCartModel ? addToCartModel;
+  void addToCart({required String product_id}){
+    emit(AddToCartLoadingState());
+    DioHelper.postData(
+        url: "/add-to-cart",
+        data: {
+          'product_id':product_id,
+        },
+        token: CacheHelper.getData(key:"token")
 
+    ).then((value) {
+      print(value.data['data']['token']);
+
+      print(CacheHelper.getData(key: 'token'));
+      emit(AddToCartSuccessState());
+
+
+    }).catchError((errror){
+      if(errror is DioException){
+        print(errror.response);
+      }
+      print(errror);
+      if(errror is DioError && errror.response?.statusCode==422){
+        final e = errror.response?.data;
+        final m = e["message"];
+        print(e);
+        print(m);
+      }
+      emit(AddToCartFailState());
+    });
+  }
+
+  AddToFavModel ? addToFavModel;
+  void addToFav({required String product_id}){
+    emit(AddToFavLoadingState());
+    DioHelper.postData(
+        url: "/add-to-wishlist",
+        data: {
+          'product_id':product_id,
+        },
+        token: CacheHelper.getData(key:"token")
+
+    ).then((value) {
+      print(value.data['data']['token']);
+      print("mostafa add to fav");
+      print(CacheHelper.getData(key: 'token'));
+      emit(AddToFavSuccessState());
+
+    }).catchError((errror){
+      if(errror is DioException){
+        print(errror.response);
+      }
+      print(errror);
+      if(errror is DioError && errror.response?.statusCode==422){
+        final e = errror.response?.data;
+        final m = e["message"];
+        print(e);
+        print(m);
+      }
+      emit(AddToFavFailState());
+    });
+  }
 
 }

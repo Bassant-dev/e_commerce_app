@@ -9,99 +9,14 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../books_screen/view/books_screen.dart';
+import '../../books_screen/view/widget/books_details.dart';
+import '../../books_screen/view_model/cubit/cubit.dart';
 import '../../cart_screen/view/cart_screen.dart';
 import '../../fav_screen/view/fav_screen.dart';
 import '../../profile_screen/view/profile_screen.dart';
 import '../view_model/cubit/cubit.dart';
 import '../view_model/cubit/states.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
-
-  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
-  List<String> imagesSlider = [
-    'assets/img/sale1.jpeg',
-    'assets/img/sale2.jpeg',
-    'assets/img/sale3.jpeg',
-  ];
-  List<Widget> _buildScreens(BuildContext context) {
-
-    return [
-      HomeScreenContent(),
-      BooksScreen(),
-      FavScreen(),
-      CartScreen(),
-      ProfileScreen()
-
-    ];
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
-    return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
-        title: "Home",
-        activeColorPrimary: HexColor('#174068'),
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.library_books),
-        title: "Books",
-        activeColorPrimary: HexColor('#174068'),
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.favorite_border),
-        title: "Favourite",
-        activeColorPrimary: HexColor('#174068'),
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.shopping_cart),
-        title: "Cart",
-        activeColorPrimary: HexColor('#174068'),
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
-        title: "Profile",
-        activeColorPrimary: HexColor('#174068'),
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-    ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(context),
-      items: _navBarsItems(context),
-      confineInSafeArea: true,
-      backgroundColor: Colors.white, // Change as needed
-      handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
-      stateManagement: true,
-      hideNavigationBarWhenKeyboardShows: true,
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0), // Adjust as needed
-      ),
-      popAllScreensOnTapOfSelectedTab: true,
-      popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
-      ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
-        animateTabTransition: true,
-        curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
-      ),
-      navBarStyle: NavBarStyle.style6, // Change as needed
-    );
-  }
-}
 
 class HomeScreenContent extends StatelessWidget {
   @override
@@ -116,10 +31,7 @@ class HomeScreenContent extends StatelessWidget {
         final categories = HomeCubit.get(context).categoryModel?.data?.categories; // Replace this with your actual categories data
 
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: HexColor("#174068"),
-            title: Text('Home', style: TextStyle(color: Colors.white)),
-          ),
+
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -184,13 +96,26 @@ class HomeScreenContent extends StatelessWidget {
                                 child: Stack(
                                   alignment: Alignment.topRight,
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 10.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(
-                                          image: NetworkImage(bestSeller?.image ?? ''),
-                                          fit: BoxFit.cover,
+                                    InkWell(
+                                      onTap: () {
+                                        BooksCubit.get(context)
+                                            .GetBooksDetails(bestSeller?.id ?? 0);
+                                        BooksCubit.get(context).GetBooks();
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                BookDetails(id:bestSeller?.id ?? 0),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 10.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            image: NetworkImage(bestSeller?.image ?? ''),
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -351,13 +276,26 @@ class HomeScreenContent extends StatelessWidget {
                                 child: Stack(
                                   alignment: Alignment.topRight,
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 10.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(
-                                          image: NetworkImage(newArrival?.image ?? ''),
-                                          fit: BoxFit.cover,
+                                    InkWell(
+                                      onTap: () {
+                                        BooksCubit.get(context)
+                                            .GetBooksDetails(newArrival?.id ?? 0);
+                                        BooksCubit.get(context).GetBooks();
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                BookDetails(id:newArrival?.id ?? 0),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 10.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            image: NetworkImage(newArrival?.image ?? ''),
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     ),

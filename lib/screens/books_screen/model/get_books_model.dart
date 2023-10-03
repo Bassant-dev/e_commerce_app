@@ -76,6 +76,7 @@ class Products {
   int? bestSeller;
   String? image;
   String? category;
+  bool fav =false;
 
   Products(
       {this.id,

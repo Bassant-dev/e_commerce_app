@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context)=> RegisterCubit()),
         BlocProvider(create: (context)=> LoginCubit()),
         BlocProvider(create: (context)=>  BooksCubit()..GetBooks()),
-        BlocProvider(create: (context)=>   FavCubit()),
-        BlocProvider(create: (context)=>   CartCubit()),
+        BlocProvider(create: (context)=>   FavCubit()..ShowFav()),
+        BlocProvider(create: (context)=>   CartCubit()..ShowCart()),
         BlocProvider(create: (context)=>   ProfileCubit()..GetProfile()..GetGovernment()),
 
 
@@ -55,7 +55,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
-
+            bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: HexColor("#174068"),
+              unselectedItemColor: Colors.grey,
+              elevation: 20.0,
+              backgroundColor: Colors.white,
+            ),
             colorScheme: ColorScheme.fromSeed(seedColor: HexColor("#174068")),
             useMaterial3: true,
           ),

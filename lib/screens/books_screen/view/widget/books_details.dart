@@ -1,30 +1,42 @@
+import 'package:e_commerce_app/screens/cart_screen/view_model/cubit/cubit.dart';
+import 'package:e_commerce_app/screens/home_screen/view_model/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../cart_screen/view_model/cubit/states.dart';
 import '../../model/books_details_model.dart';
 import '../../view_model/cubit/cubit.dart';
 import '../../view_model/cubit/states.dart';
 
 class BookDetails extends StatelessWidget {
   BookDetails({Key? key, required this.id}) : super(key: key);
-  int id;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BooksCubit, BooksStates>(
       listener: (context, state) {
-
+        if (state is AddToCartSuccessState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Add Successfully"),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
       },
       builder: (context, state) {
         final cubit = BooksCubit.get(context);
+        final booksDetailsModel = cubit.booksDetailsModel;
+
         return Scaffold(
           appBar: AppBar(
             backgroundColor: HexColor("#174068"),
             title: Text('Book Details', style: TextStyle(color: Colors.white)),
           ),
-          body: BooksCubit.get(context).booksDetailsModel != null ?
-               SingleChildScrollView(
+          body: booksDetailsModel != null
+              ? SingleChildScrollView(
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +51,7 @@ class BookDetails extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                              '${cubit.booksDetailsModel?.data?.image}'),
+                              '${booksDetailsModel.data?.image}'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -57,7 +69,7 @@ class BookDetails extends StatelessWidget {
                 ),
                 SizedBox(height: 16.0),
                 Text(
-                  '${cubit.booksDetailsModel?.data?.name}',
+                  '${booksDetailsModel.data?.name}',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -65,21 +77,21 @@ class BookDetails extends StatelessWidget {
                 ),
                 SizedBox(height: 8.0),
                 Text(
-                  'Category : ${cubit.booksDetailsModel?.data?.category}',
+                  'Category : ${booksDetailsModel.data?.category}',
                   style: TextStyle(
                     fontSize: 16,
                   ),
                 ),
                 SizedBox(height: 16.0),
                 Text(
-                  '${cubit.booksDetailsModel?.data?.description}',
+                  '${booksDetailsModel.data?.description}',
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 SizedBox(height: 16.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '\$${cubit.booksDetailsModel?.data?.price ?? 'Price not available'}',
+                    '\$${booksDetailsModel.data?.price ?? 'Price not available'}',
                     style: TextStyle(
                       decoration: TextDecoration.lineThrough,
                       fontSize: 14.0,
@@ -91,7 +103,7 @@ class BookDetails extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '\$${cubit.booksDetailsModel?.data?.priceAfterDiscount ?? 'Price not available'}',
+                    '\$${booksDetailsModel.data?.priceAfterDiscount ?? 'Price not available'}',
                     style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.green,
@@ -110,7 +122,10 @@ class BookDetails extends StatelessWidget {
                       HexColor("#174068"), // Set the background color here
                     ),
                     onPressed: () {
-                      // Add your onPressed logic here
+                      print('\$${booksDetailsModel.data?.id ?? ''}');
+                     BooksCubit.get(context).addToCart(
+                          product_id: '${booksDetailsModel.data?.id ?? ''}');
+                      CartCubit.get(context).ShowCart();
                     },
                     child: Text(
                       'Add to Cart',
@@ -120,9 +135,9 @@ class BookDetails extends StatelessWidget {
                 ),
               ],
             ),
-          ): Center(child: CircularProgressIndicator()));
-
-
+          )
+              : Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }

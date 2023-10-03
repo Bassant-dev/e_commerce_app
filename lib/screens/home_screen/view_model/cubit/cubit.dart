@@ -2,14 +2,23 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app/screens/home_screen/model/bestseller_model.dart';
 import 'package:e_commerce_app/screens/home_screen/view_model/cubit/states.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cache_helper.dart';
 import '../../../../core/dio.dart';
+
+import '../../../books_screen/view/books_screen.dart';
+import '../../../cart_screen/view/cart_screen.dart';
+import '../../../fav_screen/view/fav_screen.dart';
+import '../../../profile_screen/view/profile_screen.dart';
 import '../../model/category model.dart';
 import '../../model/newarrival_model.dart';
+import '../../model/searchh_model.dart';
 import '../../model/slider_model.dart';
+import '../../view/home_screen.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
@@ -17,7 +26,66 @@ class HomeCubit extends Cubit<HomeStates> {
 
   final Dio dio = Dio();
 
+  int currentIndex = 0;
 
+  List<BottomNavigationBarItem> bottomItems = [
+    const BottomNavigationBarItem(
+      icon: Icon(
+        Icons.home,
+      ),
+      label: 'Home',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(
+        Icons.book,
+      ),
+      label: 'Books',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(
+        Icons.favorite,
+      ),
+      label: 'Favourite',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(
+        Icons.shopping_cart_outlined,
+      ),
+      label: 'Cart',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(
+        Icons.person,
+      ),
+      label: 'Person',
+    ),
+  ];
+
+  void changeBottomNavBar(int index) {
+    currentIndex = index;
+    emit(NewsBottomNavState());
+  }
+  final homeScreen =HomeScreenContent();
+  final booksScreen =  BooksScreen();
+  final favouriteScreen = FavScreen();
+  final cartScreen = CartScreen();
+  final profileScreen = ProfileScreen();
+
+
+  Widget getCurrentScreen() {
+    switch (currentIndex) {
+      case 0:
+        return homeScreen;
+      case 1:
+        return booksScreen;
+      case 2:
+        return favouriteScreen;
+     case 3:
+        return cartScreen;
+      default:
+        return  profileScreen;
+    }
+  }
   SliderModel ? sliderModel;
   Future<void>GetSlider()async
   {
@@ -103,4 +171,28 @@ class HomeCubit extends Cubit<HomeStates> {
 
 
   }
+  SearchModel? searchModel;
+
+  Future<void> searchForBooks(String name) async {
+    emit(SearchLoadingState());
+
+
+    DioHelper.getData(
+      url: '/products-search?name=$name',
+      token: CacheHelper.getData(key: "token"),
+    ).then((response) {
+      searchModel = SearchModel.fromJson(response.data);
+      emit(SearchSuccessState());
+    }).catchError((e) {
+      if (e is DioError && e.response?.statusCode == 401) {
+        final error = e.response?.data;
+        final m = error["message"];
+        print(error);
+        print(m);
+      }
+      emit(SearchFailState());
+    });
+  }
+
+
 }

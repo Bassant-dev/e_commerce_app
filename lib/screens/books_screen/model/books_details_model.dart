@@ -1,13 +1,14 @@
 class BooksDetailsModel {
-  Data? data;
+  DataModel? data;
   String? message;
   List<Null>? error;
   int? status;
+  bool fav=false;
 
   BooksDetailsModel({this.data, this.message, this.error, this.status});
 
   BooksDetailsModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? DataModel.fromJson(json['data']) : null;
     message = json['message'];
     if (json['error'] != null) {
       error = <Null>[];
@@ -32,7 +33,7 @@ class BooksDetailsModel {
   }
 }
 
-class Data {
+class DataModel {
   int? id;
   String? name;
   String? description;
@@ -43,8 +44,9 @@ class Data {
   int? priceAfterDiscount;
   String? image;
   String? category;
+  bool fav=false;
 
-  Data(
+  DataModel(
       {this.id,
         this.name,
         this.description,
@@ -56,7 +58,7 @@ class Data {
         this.image,
         this.category});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
