@@ -101,23 +101,23 @@ class _ProfileScreenBodyState extends State<UpdateProfileScreenBody> {
                         title: Text("GOVERNMENT"),
                         children: [
                           StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+                            builder: (BuildContext context, StateSetter setState) {
                               return Container(
                                 height: 200,
                                 child: ListView.builder(
                                   itemCount: cubit.getGovernmentModel != null ? cubit.getGovernmentModel!.data!.length : 0,
                                   itemBuilder: (context, index) {
                                     final Data = cubit.getGovernmentModel?.data?[index];
-                                    return RadioListTile(
+                                    return RadioListTile<String>(
                                       title: Text("${Data!.governorateNameEn}"),
-                                      value: index + 1,
+                                      value: "${Data.governorateNameEn}",
                                       groupValue: cubit.selectItem,
                                       onChanged: (value) {
                                         print(value);
                                         print("m + b");
                                         setState(() {
                                           print(Data.governorateNameEn);
-                                          ProfileCubit.get(context).selectItem = value;
+                                          cubit.selectOption(value!);
                                           print(value.toString());
                                         });
                                       },
@@ -130,6 +130,8 @@ class _ProfileScreenBodyState extends State<UpdateProfileScreenBody> {
                         ],
                       ),
                     ),
+
+
                     SizedBox(height: 16.h),
                     ElevatedButton(
                       onPressed: () {

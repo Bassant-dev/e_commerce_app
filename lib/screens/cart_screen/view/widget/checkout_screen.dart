@@ -70,7 +70,7 @@ class CheckOutScreenBody extends StatelessWidget {
                         contentPadding: EdgeInsets.all(16.0),
                         leading: Container(
                           width: 80.0,
-                          height: 80.0,
+                          height: 120.0,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image.network(

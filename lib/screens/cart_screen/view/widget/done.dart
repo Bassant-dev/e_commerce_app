@@ -9,7 +9,7 @@ class Done extends StatelessWidget {
 
      body: Center(
        child: Image.asset(
-         'assets/img/Done-rafiki.png', // Replace with your image URL
+         'assets/img/green_double_circle_check_mark.jpg', // Replace with your image URL
          width: 400.0, // Adjust the width as needed
          height: 400.0, // Adjust the height as needed
          fit: BoxFit.contain, // Adjust the fit property as needed

@@ -23,6 +23,4 @@ class ResetVrifyLoadingState extends   RegisterStates{}
 class ResetVrifySuccessState extends   RegisterStates
 {
 }
-class ResetVrifyErrorState extends   RegisterStates
-{
-}
+class ResetVrifyErrorState extends   RegisterStates {}

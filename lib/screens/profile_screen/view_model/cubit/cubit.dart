@@ -74,6 +74,24 @@ class ProfileCubit extends Cubit<ProfileStates> {
       emit(ProfileEditFailState());
     });
   }
+  Future userLogOut()async
+  {
+    try {
+      Response response=await DioHelper.postData(url: '/logout',token: CacheHelper.getData(key: "token"), data: {});
+      print(response.data['message']);
+      emit(LogOutSuccess());
+    } on Exception catch (e) {
+      print(e.toString());
+      if(e is DioError && e.response?.statusCode==401){
+        final error = e.response?.data;
+        final m = error["message"];
+        print(error);
+        print(m);
+      }
+      emit(LogOutFailure());
+
+    }
+  }
   ShowProfileModel ? showProfileModel;
 
   Future<void> GetProfile() async {
@@ -113,11 +131,12 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }
 
 
-  int? selectItem;
+  String? selectItem;
 
-  void selectOption(int option) {
+  void selectOption(String option) {
     selectItem = option;
     emit(RadioCubitSelectedadd());
   }
+
 
 }

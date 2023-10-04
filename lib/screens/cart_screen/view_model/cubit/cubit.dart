@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app/core/dio.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/cache_helper.dart';
 import '../../model/remove_cart_model.dart';
 import '../../model/show_cart_model.dart';
+import '../../model/update_model.dart';
 
 class CartCubit extends Cubit<CartStates> {
   CartCubit() : super(CartInitialState());
@@ -15,33 +18,49 @@ class CartCubit extends Cubit<CartStates> {
   final Dio dio = Dio();
   static CartCubit get(context) => BlocProvider.of<CartCubit>(context);
 
-  final Map<String, int> productQuantities = {};
-
-  void incrementProductQuantity(String productId) {
-    try {
-      final currentQuantity = productQuantities[productId] ?? 0;
-      productQuantities[productId] = currentQuantity + 1;
-      emit(CartQuantityUpdatedState(productQuantities));
-    } catch (error) {
-      emit(CartQuantityUpdateErrorState());
-    }
+  int quantity =1;
+  void decrementProductQuantity() {
+   quantity--;
+   emit(DecrementSuccessState());
   }
+  void incrementProductQuantity() {
+quantity++;
+emit(IncrementSuccessState());
+  }
+  UpdateCartModel? updateCartModel;
 
-  void decrementProductQuantity(String productId) {
-    try {
-      final currentQuantity = productQuantities[productId] ?? 0;
-      if (currentQuantity > 0) {
-        productQuantities[productId] = currentQuantity - 1;
-      } else {
+  void UpadateCart(cart_item_id){
+    emit(UpdateLoadingState());
+    DioHelper.postData(
+        url: "/update-cart",
+        data: {
+          'cart_item_id':cart_item_id,
+          'quantity':quantity
+        },
+        token: CacheHelper.getData(key:"token")
 
-        print('Quantity cannot be less than 0.');
+    ).then((value) {
+      print(value.data['data']['token']);
+      emit(UpdateCartSuccessState());
+
+    }).catchError((errror){
+      if(errror is DioException){
+        print(errror.response);
       }
-      emit(CartQuantityUpdatedState(productQuantities));
-    } catch (error) {
-      emit(CartQuantityUpdateErrorState());
-    }
+      print(errror);
+      if(errror is DioError && errror.response?.statusCode==422){
+        final e = errror.response?.data;
+        final m = e["message"];
+        print(e);
+        print(m);
+      }
+      emit(UpdateCartFailState());
+    });
   }
-
+  void update_Quantity(update_Quantity) {
+    quantity=update_Quantity;
+    emit(UpdateQuantityState());
+  }
   ShowCartModel? showCartModel;
   Future<void> ShowCart() async {
     showCartModel = null;

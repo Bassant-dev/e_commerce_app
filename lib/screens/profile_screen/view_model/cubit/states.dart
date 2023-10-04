@@ -12,3 +12,5 @@ class GovernmentFailState extends ProfileStates{}
 class RadioCubitSelectedadd extends ProfileStates {
 
 }
+class LogOutSuccess  extends ProfileStates {}
+class LogOutFailure extends  ProfileStates {}

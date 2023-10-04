@@ -121,8 +121,11 @@ class CartScreenBody extends StatelessWidget {
                                           IconButton(
                                             icon: Icon(Icons.remove),
                                             onPressed: () {
-                                              // Call the function to remove the item
-
+                                              CartCubit.get(context).update_Quantity(cart?.itemQuantity);
+                                              CartCubit.get(context).decrementProductQuantity();
+                                              CartCubit.get(context).UpadateCart( cart!.itemId);
+                                              print( CartCubit.get(context).quantity);
+                                              CartCubit.get(context).ShowCart();
                                             },
                                           ),
                                           Text(
@@ -132,10 +135,12 @@ class CartScreenBody extends StatelessWidget {
                                           IconButton(
                                             icon: Icon(Icons.add),
                                             onPressed: () {
-                                              // Call the increment function
-                                              CartCubit.get(context)
-                                                  .incrementProductQuantity(
-                                                  '${cart?.itemId}');
+                                              CartCubit.get(context).update_Quantity(cart?.itemQuantity);
+                                              CartCubit.get(context).incrementProductQuantity();
+                                              CartCubit.get(context).UpadateCart( cart!.itemId);
+                                              print( CartCubit.get(context).quantity);
+                                              CartCubit.get(context).ShowCart();
+
                                             },
                                           ),
 
@@ -167,7 +172,8 @@ CartCubit.get(context).ShowCart();
                 ),
               ),
               // Total Button
-              ElevatedButton(
+              CartCubit.get(context).showCartModel != null
+                  ? ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -189,7 +195,7 @@ CartCubit.get(context).ShowCart();
                     color: Colors.white,
                   ),
                 ),
-              ),
+              ):  Center(child: CircularProgressIndicator()),
             ],
           ),
         );

@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/screens/login/view/login_screen_body.dart';
+import 'package:e_commerce_app/screens/profile_screen/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,19 +16,62 @@ class ProfileScreenBody extends StatefulWidget {
   @override
   State<ProfileScreenBody> createState() => _ProfileScreenBodyState();
 }
+showAlertDialog(BuildContext context) {
+
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text("Ok"),
+    onPressed:  () {
+     ProfileCubit.get(context).userLogOut();
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileScreen()),
+      );
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Logout"),
+    content: Text("Would you like to Logout?!"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
 
 class _ProfileScreenBodyState extends State<ProfileScreenBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is LogOutSuccess) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        }
+      },
       builder: (context, state) {
         final cubit = ProfileCubit.get(context);
         final profileData = cubit.showProfileModel?.data;
 
         return Scaffold(
           backgroundColor: Colors.white,
-
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -66,6 +111,26 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   ),
                   child: Text(
                     'Edit Profile',
+                    style: GoogleFonts.roboto(
+                      fontSize: 18.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {
+                    showAlertDialog(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red, // You can change the color to match your design
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    minimumSize: Size(312.w, 48.h),
+                  ),
+                  child: Text(
+                    'Logout',
                     style: GoogleFonts.roboto(
                       fontSize: 18.sp,
                       color: Colors.white,
