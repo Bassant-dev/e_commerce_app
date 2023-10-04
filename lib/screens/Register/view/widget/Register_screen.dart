@@ -114,20 +114,32 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                     defaultFormField(
                       controller: passwordController,
                       prifex:Icons.lock,
+                     isPassword:  RegisterCubit.get(context).isPassword,
                       type: TextInputType.visiblePassword,
+                      maxline: 1,
                       validate: (String? value) {
                         if (value!.isEmpty) {
                           return 'Please enter your password';
                         }
                         return null;
                       },
+                      suffix:RegisterCubit.get(context).suffix ,
+                      suffixpressed: (){
+                        RegisterCubit.get(context).changePasswordVisibility();
+                      },
                       label: 'Password',
                     ),
                     SizedBox(height: 16.h),
                     defaultFormField(
+                      maxline: 1,
                       prifex:Icons.lock,
+                      isPassword: RegisterCubit.get(context).isPassword3,
                       controller: confirmPasswordController,
                       type: TextInputType.visiblePassword,
+                      suffix:RegisterCubit.get(context).suffix3 ,
+                      suffixpressed: (){
+                        RegisterCubit.get(context).changePasswordVisibility3();
+                      },
                       validate: (String? value) {
                         if (value!.isEmpty) {
                           return 'Please enter your password again';

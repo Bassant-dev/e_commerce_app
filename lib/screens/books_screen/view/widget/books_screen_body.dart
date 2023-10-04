@@ -72,7 +72,7 @@ class BooksScreenBody extends StatelessWidget {
                                     book?.image ??
                                         'https://img.freepik.com/free-photo/front-view-smiley-woman-with-fireworks_52683-98180.jpg',
                                     fit: BoxFit.cover,
-                                    height: 210,
+                                    height: 170,
                                   ),
                                   if (book?.discount != null)
                                     Container(
@@ -145,27 +145,27 @@ class BooksScreenBody extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          print(book?.id);
-                                          print(book?.name);
-
-
-                                          BooksCubit.get(context).GetBooksDetails(book?.id ?? 0);
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) => BookDetails(id: book?.id ?? 0),
-                                            ),
-                                          );
-                                        },
-                                        child: Text('Books Details'),
-                                      ),
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Container(
+                                  //     width: double.infinity,
+                                  //     child: ElevatedButton(
+                                  //       onPressed: () {
+                                  //         print(book?.id);
+                                  //         print(book?.name);
+                                  //
+                                  //
+                                  //         BooksCubit.get(context).GetBooksDetails(book?.id ?? 0);
+                                  //         Navigator.of(context).push(
+                                  //           MaterialPageRoute(
+                                  //             builder: (context) => BookDetails(id: book?.id ?? 0),
+                                  //           ),
+                                  //         );
+                                  //       },
+                                  //       child: Text('Books Details'),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

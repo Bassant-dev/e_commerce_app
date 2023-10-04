@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app/screens/Register/view_model/cubit/states.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/cache_helper.dart';
@@ -76,6 +77,23 @@ class RegisterCubit extends Cubit<RegisterStates> {
       }
       emit(VerifyErrorState());
     });
+  }
+  IconData suffix = Icons.visibility_outlined;
+  IconData suffix3= Icons.visibility_outlined;
+  bool isPassword = true;
+  bool isPassword3 = true;
+  void changePasswordVisibility()
+  {
+    isPassword = !isPassword;
+    suffix = isPassword ? Icons.visibility : Icons.visibility_off ;
+    emit(SocialLogoutChangePasswordVisibilityState());
+
+  }
+  void changePasswordVisibility3()
+  {
+    isPassword3 = !isPassword3;
+    suffix3 = isPassword3 ? Icons.visibility : Icons.visibility_off ;
+    emit(SocialLogoutChangePasswordVisibilityState());
   }
   void Resendverify(){
     emit(ResetVrifyLoadingState());

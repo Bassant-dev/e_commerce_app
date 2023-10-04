@@ -24,3 +24,4 @@ class ResetVrifySuccessState extends   RegisterStates
 {
 }
 class ResetVrifyErrorState extends   RegisterStates {}
+class SocialLogoutChangePasswordVisibilityState extends   RegisterStates {}

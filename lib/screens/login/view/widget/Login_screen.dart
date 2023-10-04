@@ -72,6 +72,12 @@ class LoginScreenBody extends StatelessWidget {
                     ),
                     SizedBox(height: 20.h),
                     defaultFormField(
+                      suffix:LoginCubit.get(context).suffix4 ,
+                      isPassword: LoginCubit.get(context).isPassword4,
+                      maxline: 1,
+                      suffixpressed: (){
+                        LoginCubit.get(context).changePasswordVisibility4();
+                      },
                       controller: passwordController,
                       prifex:Icons.lock,
                       type: TextInputType.visiblePassword,

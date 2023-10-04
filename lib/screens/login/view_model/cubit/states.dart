@@ -11,6 +11,10 @@ class LoginErrorState extends  LoginStates
 {
 
 }
+class SocialLogoutChangePasswordVisibilityState extends LoginStates
+{
+
+}
 // class CheckSuccess extends  LoginStates
 // {}
 // class LogoutLoadingState extends  LoginStates{}

@@ -17,6 +17,16 @@ class LoginCubit extends Cubit<LoginStates> {
   final Dio dio = Dio();
 
   static LoginCubit get(context) => BlocProvider.of<LoginCubit>(context);
+  IconData suffix4= Icons.visibility_outlined;
+
+  bool isPassword4 = true;
+  void changePasswordVisibility4()
+  {
+    isPassword4 = !isPassword4;
+    suffix4 = isPassword4 ? Icons.visibility : Icons.visibility_off ;
+    emit(SocialLogoutChangePasswordVisibilityState());
+
+  }
 
   LoginModel? loginModel;
 
