@@ -88,27 +88,21 @@ class BookDetails extends StatelessWidget {
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 SizedBox(height: 16.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '\$${booksDetailsModel.data?.price ?? 'Price not available'}',
-                    style: TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      fontSize: 14.0,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Text(
+                  '\$${booksDetailsModel.data?.price ?? 'Price not available'}',
+                  style: TextStyle(
+                    decoration: TextDecoration.lineThrough,
+                    fontSize: 20.0,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '\$${booksDetailsModel.data?.priceAfterDiscount ?? 'Price not available'}',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Text(
+                  '\$${booksDetailsModel.data?.priceAfterDiscount ?? 'Price not available'}',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 24.0),

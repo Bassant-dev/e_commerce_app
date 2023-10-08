@@ -57,7 +57,7 @@ class HomeCubit extends Cubit<HomeStates> {
       icon: Icon(
         Icons.person,
       ),
-      label: 'Person',
+      label: 'Profile',
     ),
   ];
 

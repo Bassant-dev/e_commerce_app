@@ -34,7 +34,7 @@ class SearchView extends StatelessWidget {
                     controller: searchController),
               ),
               SizedBox(height: 14.h,),
-              cubit.searchModel == null  ?Expanded(child: Center(child: Image.asset('assets/img/Done-rafiki.png',width: 250.w),)) :
+              cubit.searchModel == null  ?Expanded(child: Center(child: Image.asset('assets/img/Search engines-cuate.png',width: 250.w),)) :
               Expanded(
                 child: Padding(
                   padding:  EdgeInsets.symmetric(horizontal: 16.w),

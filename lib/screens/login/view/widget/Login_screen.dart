@@ -125,7 +125,7 @@ class LoginScreenBody extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Don\t have an account? ', style: TextStyle(fontSize: 16.sp)),
+                        Text("Don't have an account?  ", style: TextStyle(fontSize: 16.sp)),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -135,6 +135,7 @@ class LoginScreenBody extends StatelessWidget {
                               ),
                             );
                           },
+
                           child: Text(
                             'Register Now',
                             style: TextStyle(

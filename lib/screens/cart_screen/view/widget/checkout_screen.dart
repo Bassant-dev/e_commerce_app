@@ -30,12 +30,13 @@ class CheckOutScreenBody extends StatelessWidget {
       builder: (context, state) {
         final cubit = ProfileCubit.get(context);
         final profileData = cubit.showProfileModel?.data;
-
+        ProfileCubit.get(context).GetProfile();
         return Scaffold(
           appBar: AppBar(
             title: Text('Checkout'),
           ),
           body: Column(
+
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
@@ -86,6 +87,7 @@ class CheckOutScreenBody extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
+
                           ),
                         ),
                         subtitle: Column(
@@ -119,53 +121,58 @@ class CheckOutScreenBody extends StatelessWidget {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Done()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: HexColor('#174068'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              Center(
+                child: Container(
+                  width: 312.w,
+                  height: 48.h,
+                  child: ElevatedButton(
+                    onPressed: () {
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: HexColor('#174068'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                    minimumSize: Size(312.w, 48.h),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Total Price:',
-                        style: GoogleFonts.roboto(
-                          fontSize: 16.sp,
-                          color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total Price : ${CartCubit.get(context).showCartModel?.data?.total} ',
+                          style: GoogleFonts.roboto(
+                            fontSize: 14.sp,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '\$${CartCubit.get(context)
-            .showCartModel?.data?.total}',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
+                        ElevatedButton(
+                          onPressed: () {
 
-                        'Done',
-                        style: GoogleFonts.roboto(
-                          fontSize: 16.sp,
-                          color: Colors.white,
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Done()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green, // Customize the color for the Checkout button
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            'Order Now',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                )
-
+                ),
               ),
+
             ],
           ),
         );

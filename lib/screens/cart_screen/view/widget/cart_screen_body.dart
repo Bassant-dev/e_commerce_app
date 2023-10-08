@@ -46,7 +46,7 @@ class CartScreenBody extends StatelessWidget {
                                     cart?.itemProductImage ??
                                         'https://img.freepik.com/free-photo/front-view-smiley-woman-with-fireworks_52683-98180.jpg',
                                     fit: BoxFit.cover,
-                                    height: 170,
+                                    height: 140,
                                   ),
                                   if (cart?.itemProductDiscount != null)
                                     Container(
@@ -78,7 +78,7 @@ class CartScreenBody extends StatelessWidget {
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                       ),
-                                      maxLines: 1,
+                                      maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -88,7 +88,7 @@ class CartScreenBody extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: EdgeInsets.only(left: 8.0),
                                         child: Text(
                                           '\$${cart?.itemProductPrice ?? 'Price not available'}',
                                           style: TextStyle(
@@ -103,7 +103,7 @@ class CartScreenBody extends StatelessWidget {
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       '\$${cart?.itemProductPriceAfterDiscount ?? 'Price not available'}',
                                       style: TextStyle(
@@ -173,29 +173,56 @@ CartCubit.get(context).ShowCart();
               ),
               // Total Button
               CartCubit.get(context).showCartModel != null
-                  ? ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CheckOutScreenBody()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: HexColor('#174068'),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                  ? Container(
+                width: 312.w,
+                height: 48.h,
+                child: ElevatedButton(
+                  onPressed: () {
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: HexColor('#174068'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                  minimumSize: Size(312.w, 48.h),
-                ),
-                child: Text(
-                  'Total Price : ${CartCubit.get(context).showCartModel?.data?.total} ',
-                  style: GoogleFonts.roboto(
-                    fontSize: 16.sp,
-                    color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total Price : ${CartCubit.get(context).showCartModel?.data?.total} ',
+                        style: GoogleFonts.roboto(
+                          fontSize: 14.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CheckOutScreenBody()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green, // Customize the color for the Checkout button
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'Checkout',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ):  Center(child: CircularProgressIndicator()),
+              )
+                  :  Center(child: CircularProgressIndicator()),
             ],
           ),
         );
