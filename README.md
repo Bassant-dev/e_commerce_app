@@ -13,4 +13,7 @@ Welcome to the E-Commerce Books App demo repository! This repository showcases a
 - **Responsive Design:** Adapts to various screen sizes and orientations, delivering a consistent and user-friendly experience.
 
 
+## video
+
+https://github.com/Bassant-dev/e_commerce_app/assets/77055355/7f426d1c-2c1a-4cac-b1f3-f4a2ef8b9fb1
 
