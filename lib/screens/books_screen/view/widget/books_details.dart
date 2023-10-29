@@ -1,9 +1,9 @@
-import 'package:e_commerce_app/screens/cart_screen/view_model/cubit/cubit.dart';
-import 'package:e_commerce_app/screens/home_screen/view_model/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../../cart_screen/view_model/cubit/cubit.dart';
 import '../../../cart_screen/view_model/cubit/states.dart';
 import '../../model/books_details_model.dart';
 import '../../view_model/cubit/cubit.dart';
@@ -20,7 +20,7 @@ class BookDetails extends StatelessWidget {
         if (state is AddToCartSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Add Successfully"),
+              content: Text("Added to Cart successfully"),
               duration: Duration(seconds: 2),
             ),
           );
@@ -50,8 +50,7 @@ class BookDetails extends StatelessWidget {
                       height: 400,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(
-                              '${booksDetailsModel.data?.image}'),
+                          image: NetworkImage('${booksDetailsModel.data?.image}'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -112,13 +111,10 @@ class BookDetails extends StatelessWidget {
                   height: 60,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary:
-                      HexColor("#174068"), // Set the background color here
+                      primary: HexColor("#174068"),
                     ),
                     onPressed: () {
-                      print('\$${booksDetailsModel.data?.id ?? ''}');
-                     BooksCubit.get(context).addToCart(
-                          product_id: '${booksDetailsModel.data?.id ?? ''}');
+                      BooksCubit.get(context).addToCart(product_id: '${booksDetailsModel.data?.id ?? ''}');
                       CartCubit.get(context).ShowCart();
                     },
                     child: Text(
@@ -130,9 +126,53 @@ class BookDetails extends StatelessWidget {
               ],
             ),
           )
-              : Center(child: CircularProgressIndicator()),
+              : _buildShimmerEffect(), // Show shimmer if data is loading
         );
       },
+    );
+  }
+
+  Widget _buildShimmerEffect() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      enabled: true, // Set to false when loading is finished
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildShimmerPlaceholder(double.infinity,400), // Placeholder for the image
+            SizedBox(height: 16.0),
+            _buildShimmerPlaceholder(150, 20), // Placeholder for title
+            SizedBox(height: 8.0),
+            _buildShimmerPlaceholder(100, 20), // Placeholder for category
+            SizedBox(height: 16.0),
+            _buildShimmerPlaceholder(double.infinity, 100), // Placeholder for description
+            SizedBox(height: 16.0),
+            _buildShimmerPlaceholder(100, 20), // Placeholder for price
+            _buildShimmerPlaceholder(100, 20), // Placeholder for discounted price
+            SizedBox(height: 24.0),
+            _buildShimmerButton(double.infinity, 60), // Placeholder for the button
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShimmerPlaceholder(double width, double height) {
+    return Container(
+      width: width,
+      height: height,
+      color: Colors.grey, // Placeholder color or shimmer effect
+    );
+  }
+
+  Widget _buildShimmerButton(double width, double height) {
+    return Container(
+      width: width,
+      height: height,
+      color: Colors.grey, // Placeholder color for button
     );
   }
 }
