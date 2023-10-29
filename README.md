@@ -1,16 +1,19 @@
-# e_commerce_app
+# E-Commerce Books App Demo
 
-"A new Flutter project."
+Welcome to the E-Commerce Books App demo repository! This repository showcases a simplified version of an e-commerce mobile application for buying and exploring books. Built using Flutter, it incorporates modern app development practices and key technologies.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **MVVM Architecture:** The app follows the Model-View-ViewModel architectural pattern for clear code separation and maintainability.
 
-A few resources to get you started if this is your first Flutter project:
+- **Cubit State Management:** Utilizes the Cubit library for efficient state management, ensuring a smooth user experience.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Dio API Integration:** Seamlessly connects to external APIs using the Dio HTTP client for real-time updates of book listings.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Responsive Design:** Adapts to various screen sizes and orientations, delivering a consistent and user-friendly experience.
+
+
+## video
+
+https://github.com/Bassant-dev/e_commerce_app/assets/77055355/7f426d1c-2c1a-4cac-b1f3-f4a2ef8b9fb1
+
